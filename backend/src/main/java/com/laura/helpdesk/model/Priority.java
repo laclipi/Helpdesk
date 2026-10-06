@@ -1,11 +1,9 @@
 package com.laura.helpdesk.model;
 
-public record Priority() {
+// Define las prioridades posibles de un ticket.
+public enum Priority {
 
-    public enum Priority {
-
-        LOW,
-        MEDIUM,
-        HIGH
-    }
+    LOW,
+    MEDIUM,
+    HIGH
 }
