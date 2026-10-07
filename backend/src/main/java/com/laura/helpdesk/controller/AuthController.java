@@ -5,6 +5,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.laura.helpdesk.dto.LoginRequest;
+import com.laura.helpdesk.dto.LoginResponse;
 import com.laura.helpdesk.dto.RegisterRequest;
 import com.laura.helpdesk.model.User;
 import com.laura.helpdesk.service.AuthService;
@@ -30,5 +32,15 @@ public class AuthController {
 
         // Delegamos la lógica de negocio en el AuthService.
         return authService.register(request);
+    }
+
+    // Inicia sesión y devuelve un JWT.
+    @PostMapping("/login")
+    public LoginResponse login(
+            @Valid @RequestBody LoginRequest request) {
+
+        // Delegamos la comprobación de credenciales y generación del JWT
+        // en el AuthService.
+        return authService.login(request);
     }
 }
