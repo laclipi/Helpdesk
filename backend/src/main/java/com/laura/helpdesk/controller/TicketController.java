@@ -36,13 +36,18 @@ public class TicketController {
     }
 
     // Crea un nuevo ticket.
+    // Crea un nuevo ticket.
     @PostMapping
     public Ticket createTicket(
-            @Valid @RequestBody TicketCreateRequest request) {
+            @Valid @RequestBody TicketCreateRequest request,
+            Authentication authentication) {
 
-        // De momento usamos un ID temporal del usuario.
-        // Más adelante lo obtendremos del usuario autenticado mediante JWT.
-        Long userId = 1L;
+        String email = authentication.getName();
+
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new IllegalArgumentException("Usuario no encontrado"));
+
+        Long userId = user.getId();
 
         return ticketService.createTicket(request, userId);
     }
@@ -63,11 +68,16 @@ public class TicketController {
 
     // Obtiene un ticket concreto del usuario actual.
     @GetMapping("/{id}")
-    public Ticket findById(@PathVariable Long id) {
+    public Ticket findById(
+            @PathVariable Long id,
+            Authentication authentication) {
 
-        // De momento usamos un ID temporal.
-        // Más adelante lo obtendremos del JWT.
-        Long userId = 1L;
+        String email = authentication.getName();
+
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new IllegalArgumentException("Usuario no encontrado"));
+
+        Long userId = user.getId();
 
         return ticketService.findById(id, userId);
     }
