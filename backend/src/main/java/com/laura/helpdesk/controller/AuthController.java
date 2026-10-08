@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.laura.helpdesk.dto.LoginRequest;
 import com.laura.helpdesk.dto.LoginResponse;
 import com.laura.helpdesk.dto.RegisterRequest;
+import com.laura.helpdesk.dto.RegisterResponse;
 import com.laura.helpdesk.model.User;
 import com.laura.helpdesk.service.AuthService;
 
@@ -26,12 +27,19 @@ public class AuthController {
     }
 
     // Registra un nuevo usuario.
+    // Registra un nuevo usuario y devuelve únicamente datos públicos.
     @PostMapping("/register")
-    public User register(
+    public RegisterResponse register(
             @Valid @RequestBody RegisterRequest request) {
 
-        // Delegamos la lógica de negocio en el AuthService.
-        return authService.register(request);
+        // Delegamos la creación del usuario en el AuthService.
+        User user = authService.register(request);
+
+        // Devolvemos únicamente los datos que queremos exponer.
+        return new RegisterResponse(
+                user.getId(),
+                user.getEmail(),
+                user.getRole().name());
     }
 
     // Inicia sesión y devuelve un JWT.

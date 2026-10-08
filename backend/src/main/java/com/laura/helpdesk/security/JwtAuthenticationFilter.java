@@ -35,12 +35,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             // Extraemos el JWT que llega después de "Bearer ".
             String token = authHeader.substring(7);
 
-            // Comprobamos temporalmente la estructura del JWT sin mostrar su contenido
-            // completo.
-            System.out.println(
-                    "JWT length=" + token.length()
-                            + ", dots=" + token.chars().filter(c -> c == '.').count());
-
             String email = jwtService.extractEmail(token);
 
             // Creamos una autenticación válida para el usuario identificado por el JWT.
