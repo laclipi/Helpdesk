@@ -1,0 +1,17 @@
+$kind: http-request
+name: Register
+description: ""
+url: http://localhost:8080/auth/register
+method: POST
+body:
+  type: json
+  content: "// Datos de ejemplo para registrar un usuario nuevo.\r
+
+    {\r
+
+    \  \"email\": \"nuevo@test.com\",\r
+
+    \  \"password\": \"123456\"\r
+
+    }"
+order: 3492305129878123

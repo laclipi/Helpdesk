@@ -1,0 +1,10 @@
+$kind: http-request
+name: List My Tickets
+description: ""
+url: http://localhost:8080/tickets
+method: GET
+auth:
+  type: bearer
+  credentials:
+    token: "{{jwt_token}}"
+order: 4334937542361444

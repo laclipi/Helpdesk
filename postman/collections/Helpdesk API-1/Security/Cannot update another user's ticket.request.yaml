@@ -1,0 +1,23 @@
+$kind: http-request
+url: http://localhost:8080/tickets/1
+method: PUT
+body:
+  type: json
+  content: "// Intentamos modificar un ticket que pertenece a Laura\r
+
+    // utilizando el usuario secundario.\r
+
+    {\r
+
+    \  \"title\": \"Intento de modificación\",\r
+
+    \  \"description\": \"No debería permitirse\",\r
+
+    \  \"priority\": \"LOW\"\r
+
+    }"
+auth:
+  type: bearer
+  credentials:
+    token: "{{jwt_token_other}}"
+order: 522133999932854

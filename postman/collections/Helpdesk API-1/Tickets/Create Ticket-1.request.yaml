@@ -1,0 +1,25 @@
+$kind: http-request
+name: Create Ticket
+description: ""
+url: http://localhost:8080/tickets
+method: POST
+body:
+  type: json
+  content: "// Datos mínimos para crear un ticket.\r
+
+    // La API obtiene el usuario autenticado a partir del JWT.\r
+
+    {\r
+
+    \  \"title\": \"Error de prueba\",\r
+
+    \  \"description\": \"Ticket creado desde Postman\",\r
+
+    \  \"priority\": \"HIGH\"\r
+
+    }"
+auth:
+  type: bearer
+  credentials:
+    token: "{{jwt_token}}"
+order: 228398817887305

@@ -1,0 +1,23 @@
+$kind: http-request
+url: http://localhost:8080/tickets/1
+method: PUT
+body:
+  type: json
+  content: "// Datos que permitimos modificar.\r
+
+    // El id, usuario y estado no se modifican desde esta petición.\r
+
+    {\r
+
+    \  \"title\": \"Ticket actualizado\",\r
+
+    \  \"description\": \"Descripción actualizada desde Postman\",\r
+
+    \  \"priority\": \"LOW\"\r
+
+    }"
+auth:
+  type: bearer
+  credentials:
+    token: "{{jwt_token}}"
+order: 4411837939993827

@@ -1,0 +1,9 @@
+$kind: collection
+name: Helpdesk API
+variables:
+  - key: jwt_token
+    secret: true
+    disabled: false
+  - key: jwt_token_other
+    secret: true
+    disabled: false
