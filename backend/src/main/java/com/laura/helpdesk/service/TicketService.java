@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.laura.helpdesk.dto.TicketCreateRequest;
+import com.laura.helpdesk.dto.TicketResponse;
 import com.laura.helpdesk.exception.AccessDeniedException;
 import com.laura.helpdesk.exception.TicketNotFoundException;
 import com.laura.helpdesk.model.Priority;
@@ -30,7 +31,7 @@ public class TicketService {
     }
 
     // Crea un nuevo ticket aplicando las reglas de negocio.
-    public Ticket createTicket(TicketCreateRequest request, Long userId) {
+    public TicketResponse createTicket(TicketCreateRequest request, Long userId) {
 
         // Buscamos al usuario que está creando el ticket.
         User user = userRepository.findById(userId)
@@ -59,16 +60,20 @@ public class TicketService {
         ticket.setCreatedAt(LocalDateTime.now());
 
         // Guardamos el ticket en la base de datos.
-        return ticketRepository.save(ticket);
+        Ticket savedTicket = ticketRepository.save(ticket);
+        return toResponse(savedTicket);
     }
 
     // Obtiene todos los tickets pertenecientes a un usuario.
-    public List<Ticket> findMyTickets(Long userId) {
-        return ticketRepository.findByUserId(userId);
+    public List<TicketResponse> findMyTickets(Long userId) {
+        return ticketRepository.findByUserId(userId)
+                .stream()
+                .map(this::toResponse)
+                .toList();
     }
 
     // Busca un ticket y comprueba que pertenece al usuario.
-    public Ticket findById(Long ticketId, Long userId) {
+    public TicketResponse findById(Long ticketId, Long userId) {
 
         Ticket ticket = ticketRepository.findById(ticketId)
                 .orElse(null);
@@ -84,6 +89,18 @@ public class TicketService {
                     "No tienes permiso para acceder a este ticket");
         }
 
-        return ticket;
+        return toResponse(ticket);
+    }
+
+    private TicketResponse toResponse(Ticket ticket) {
+        return new TicketResponse(
+                ticket.getId(),
+                ticket.getTitle(),
+                ticket.getDescription(),
+                ticket.getPriority(),
+                ticket.getStatus(),
+                ticket.getCreatedAt(),
+                ticket.getUser().getId(),
+                ticket.getUser().getEmail());
     }
 }

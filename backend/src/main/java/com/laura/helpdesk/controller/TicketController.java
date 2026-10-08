@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.laura.helpdesk.dto.TicketCreateRequest;
-import com.laura.helpdesk.model.Ticket;
+import com.laura.helpdesk.dto.TicketResponse;
 import com.laura.helpdesk.model.User;
 import com.laura.helpdesk.repository.UserRepository;
 import com.laura.helpdesk.service.TicketService;
@@ -38,7 +38,7 @@ public class TicketController {
     // Crea un nuevo ticket.
     // Crea un nuevo ticket.
     @PostMapping
-    public Ticket createTicket(
+    public TicketResponse createTicket(
             @Valid @RequestBody TicketCreateRequest request,
             Authentication authentication) {
 
@@ -54,7 +54,7 @@ public class TicketController {
 
     // Obtiene todos los tickets pertenecientes al usuario actual.
     @GetMapping
-    public List<Ticket> findMyTickets(Authentication authentication) {
+    public List<TicketResponse> findMyTickets(Authentication authentication) {
 
         String email = authentication.getName();
 
@@ -68,7 +68,7 @@ public class TicketController {
 
     // Obtiene un ticket concreto del usuario actual.
     @GetMapping("/{id}")
-    public Ticket findById(
+    public TicketResponse findById(
             @PathVariable Long id,
             Authentication authentication) {
 
