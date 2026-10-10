@@ -4,6 +4,10 @@ A full-stack helpdesk application built to practise backend development, REST AP
 
 The application allows users to register, authenticate, and manage their support tickets through a web interface connected to a Spring Boot REST API.
 
+## Demo
+
+Watch the application demo in the [GitHub Release v1.0.0](https://github.com/laclipi/Helpdesk/releases/tag/v1.0.0).
+
 ## Features
 
 * **Authentication:** User registration and login.
