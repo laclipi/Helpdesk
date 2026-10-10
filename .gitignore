@@ -1,0 +1,30 @@
+# Local environment files
+
+.env
+.env.*
+!.env.example
+
+# Secrets and credentials
+
+*.pem
+*.key
+secrets/
+application-local.properties
+
+# Java / Maven
+
+**/target/
+
+# Frontend dependencies and build output
+
+**/node_modules/
+**/.next/
+**/out/
+**/coverage/
+
+# Logs and operating-system files
+
+*.log
+.DS_Store
+Thumbs.db
+jwt-secret.txt
